@@ -1,0 +1,89 @@
+@baseUrl = http://localhost:3000
+
+GET {{baseUrl}}
+
+### Cadastrar funcionário
+POST {{baseUrl}}/funcionario
+Content-Type: application/json
+
+{
+    "nome": "Oliver",
+    "email": "oliver@gmail.com",
+    "senha": "123"
+}
+
+### Realizar login
+# @name loginReq
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+    "email": "oliver@gmail.com",
+    "senha": "123"
+}
+
+### Cadastrar condominio
+POST {{baseUrl}}/condominio
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+{
+    "nome": "Por do Sol",
+    "cnpj": "12345"
+}
+
+### Cadastrar condominio 2
+POST {{baseUrl}}/condominio
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+{
+    "nome": "Mar",
+    "cnpj": "12345"
+}
+
+### Consultar condominio
+GET {{baseUrl}}/condominio/buscar/Mar
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+### Atualizar condominio
+PUT {{baseUrl}}/condominio/1
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+{
+    "nome": "Por do Sol Atualizado",
+    "cnpj": "12345"
+}
+
+### Apagar condominio
+DELETE {{baseUrl}}/condominio/3
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+### Cadastrar material
+POST {{baseUrl}}/material
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+{
+    "descricao": "Alvejante",
+    "categoria": "Desinfetante",
+    "quantidadeEstoque": 10,
+    "codigoLote": "100",
+    "idCondominio": 1
+}
+
+### Atualizar material
+PUT {{baseUrl}}/material/1
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+{
+    "descricao": "Alvejante atualizado",
+    "categoria": "Desinfetante",
+    "quantidadeEstoque": 10,
+    "codigoLote": "100",
+    "idCondominio": 1
+}
